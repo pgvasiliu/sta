@@ -1,6 +1,15 @@
 # sta
 
 ```
+$ mkdir project
+$ cd project
+$ python3 -m venv  env
+$ git clone https://github.com/pgvasiliu/sta 
+$ . env/bin/activate
+$ pip3 install -r requirements.txt
+$ python3 main.py -i 1d -t AAPL SPY
+$ deactivate
+
 $ python3 main.py --help
 usage: main.py [-h] -i INTERVAL [-l LOGFILE] -t TICKERS [TICKERS ...] [-s STRATEGIES [STRATEGIES ...]] [-r REFRESH] [-p PERCENTAGE]
 
@@ -45,6 +54,9 @@ SPY 1h ---> SHORT ::: 113_EMA_TEMA ::: (['EMA_9', 'TEMA_30'],)
 =====  XLE  =====  2023-04-25 12:06:24  =====
 
 ```
+
+```
+Windows setup
 
 
 ### Completed
