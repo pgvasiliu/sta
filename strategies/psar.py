@@ -4,7 +4,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -49,8 +49,9 @@ data = __PSAR ( data )
 #Buy Criteria - current pSAR below close, previous pSAR above close
 if data["PSAR"].iloc[-1] < data["Adj Close"].iloc[-1] and data["PSAR"].iloc[-2] > data["Adj Close"].iloc[-2]:
     print_log ( '32_PSAR', 'LONG', [ 'PSAR' ] , backtest_strategy ( ticker , '2020-01-01' ))
+    plot ( "psar.py", ticker, FILE, interval )
 
 #Sell Criteria - current pSAR above close, previous pSAR below close
 if data["PSAR"].iloc[-1] > data["Adj Close"].iloc[-1] and data["PSAR"].iloc[-2] < data["Adj Close"].iloc[-2]:
     print_log ( '32_PSAR', 'SHORT', [ 'PSAR' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "psar.py", ticker, FILE, interval )

@@ -4,7 +4,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -47,7 +47,8 @@ data = __BB ( data, 20 )
 
 if ( data["Adj Close"][-1] < data["BB_lower"][-1] ) and ( data["Adj Close"][-1] < data["Adj Close"][-2] < data["Adj Close"][-3] < data["Adj Close"][-4] ):
     print_log ( 'bolinger_4_days_down.py', 'LONG', [ 'BB', 'close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "bolinger_4_days_down.py", ticker, FILE, interval )
 
 if ( data["Adj Close"][-1] > data["BB_upper"][-1] ):
     print_log ( 'bolinger_4_days_down.py', 'SHORT', [ 'BB', 'close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "bolinger_4_days_down.py", ticker, FILE, interval )

@@ -11,7 +11,7 @@ def backtest_strategy (stock, start_date):
     #parent_dir = os.path.dirname(script_dir)
     #filename, ext =  os.path.splitext(os.path.basename(__file__))
     
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -53,8 +53,9 @@ def backtest_strategy (stock, start_date):
 
 
 if data["ADX_14"][-1] > 35 and data["ADX_14_plus_di"][-1] < data["ADX_14_minus_di"][-1] and data["RSI_14"][-1] < 50:
-   print_log ( 'adx_rsy.py', 'LONG', [ 'ADX', 'RSI' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+   print_log ( 'adx_rsi.py', 'LONG', [ 'ADX', 'RSI' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+   plot ( "adx_rsi.py", ticker, FILE, interval )
 
 if data["ADX_14"][-1] > 35 and data["ADX_14_plus_di"][-1] > data["ADX_14_minus_di"][-1] and data["RSI_14"][-1] > 50:
    print_log ( 'adx_rsi', 'SHORT', [ 'ADX', 'RSI' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+   plot ( "adx_rsi.py", ticker, FILE, interval )

@@ -4,7 +4,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -47,8 +47,10 @@ data = __KC (data)
 # BUY SIGNAL: candle close is below lower keltner band, stochastic signal is <=30, psar is below the candle
 if data['Adj Close'].iloc[-1] < data['KC_lower'].iloc[-1]:
     print_log ( 'kc_close.py', 'LONG', [ 'KC', 'Adj Close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "kc_close.py", ticker, FILE, interval )
+
 
 # SELL SIGNAL: candle close above upper keltner band, stochastic signal >= 70, psar below candle
 if data['Adj Close'].iloc[-1] > data['KC_upper'].iloc[-1]:
     print_log ( 'kc_close.py', 'SHORT', [ 'KC', 'Adj Close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "kc_close.py", ticker, FILE, interval )

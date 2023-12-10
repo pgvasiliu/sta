@@ -9,7 +9,7 @@ def backtest_strategy ( stock, start_date ):
     #parent_dir = os.path.dirname(script_dir)
     #filename, ext =  os.path.splitext(os.path.basename(__file__))
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -51,8 +51,10 @@ def backtest_strategy ( stock, start_date ):
 # BUY SIGNAL: adx is above 25 and the positive DI crosses over negative DI indicates a strong uptrend
 if data['ADX_14'].iloc[-1] > 25 and data['ADX_14_plus_di'].iloc[-1] > data['ADX_14_minus_di'].iloc[-1] and data['ADX_14_plus_di'].iloc[-2] <= data['ADX_14_minus_di'].iloc[-2]:
     print_log ( 'adx.py', 'LONG', [ 'ADX_14' ] , backtest_strategy ( ticker , '2020-01-01' )  )
+    plot ( "adx.py", ticker, FILE, interval )
 
 # SELL SIGNAL: adx is above 25 and the negative DI crosses over positive DI indicates a strong downtrend
 if data['ADX_14'].iloc[-1] > 25 and data['ADX_14_plus_di'].iloc[-1] < data['ADX_14_minus_di'].iloc[-1] and data['ADX_14_plus_di'].iloc[-2] >= data['ADX_14_minus_di'].iloc[-2]:
     print_log ( 'adx.py', 'SHORT', [ 'ADX_14' ], backtest_strategy ( ticker , '2020-01-01' )  )
+    plot ( "adx.py", ticker, FILE, interval )
 

@@ -7,7 +7,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -51,6 +51,8 @@ data = __AO ( data )
 
 if (  ( data["MACD"][-1] > 0 ) & ( data['AO'][-1]   > 0 ) & ( data['AO'][-2]   < 0 ) ):
     print_log ( 'ao_macd.py', 'LONG', [ 'AO', 'MACD' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao_macd.py", ticker, FILE, interval )
 
 if (  ( data["MACD"][-1] < 0 )  & ( data['AO'][-1]   < 0 ) & ( data['AO'][-2]   > 0 ) ):
     print_log ( 'ao_macd.py', 'SHORT', [ 'AO', 'MACD' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao_macd.py", ticker, FILE, interval )

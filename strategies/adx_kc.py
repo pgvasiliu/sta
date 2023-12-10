@@ -14,7 +14,7 @@ def backtest_strategy(stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -62,9 +62,12 @@ if ( ( data['High'][-1] <= data['KC_lower'][-1] )
     & (data['High'][-2] <= data['KC_lower'][-2] )
     & (data['High'][-3] <= data['KC_lower'][-3] ) & ( data['ADX_14'][-1] >= 20) ):
     print_log ( 'adx_kc.py', 'LONG', [ 'ADX_14', 'KC' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "adx_kc.py", ticker, FILE, interval )
 
 # SELL SIGNAL: adx is >=25 and at least 3 candles are greater than or touch the upper keltner band
 if ( ( data['Low'][-1] >= data['KC_upper'][-1] )
     & (data['Low'][-2] >= data['KC_upper'][-2] )
     & (data['Low'][-3] >= data['KC_upper'][-3] ) & ( data['ADX_14'][-1] >= 20) ):
     print_log ( 'adx_kc.py', 'SHORT', [ 'ADX_14', 'KC' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "adx_kc.py", ticker, FILE, interval )
+

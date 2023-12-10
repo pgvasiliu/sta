@@ -13,7 +13,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -63,9 +63,11 @@ data = __WR ( data, 14 )
 if ( ( ( data['STO_D'][-1] <= 35) | (data['STO_D'][-2] <= 35) | ( data['STO_D'][-3] <= 35) | (data['STO_D'][-4] <= 35) | (data['STO_D'][-5] <= 35) | ( data['STO_D'][-6] <= 35))
     & (( data['WR_14'][-1] < -65) | (data['WR_14'][-2] < -65) | ( data['WR_14'][-3] < -65) | (data['WR_14'][-4] < -65) | (data['WR_14'][-5] < -65) | ( data['WR_14'][-6] < -65))):
     print_log ( 'wr_sto.py', 'LONG', [ 'STO', 'WR_14' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "wr_sto.py", ticker, FILE, interval )
+    
 # SELL SIGNAL: signal line is greater than or equal to 65 and williams indicator is greater than -35 within the last 5 candles
 if ( ( ( data['STO_D'][-1] >= 65) | (data['STO_D'][-2] >= 65) | ( data['STO_D'][-3] >= 65) | (data['STO_D'][-4] >= 65) | (data['STO_D'][-5] >= 65) | ( data['STO_D'][-6] >= 65))
     & (( data['WR_14'][-1] > -35) | (data['WR_14'][-2] > -35) | ( data['WR_14'][-3] > -35) | (data['WR_14'][-4] > -35) | (data['WR_14'][-5] > -35) | ( data['WR_14'][-6] > -35))):
     print_log ( 'wr_sto.py', 'SHORT', [ 'STO', 'WR_14' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "wr_sto.py", ticker, FILE, interval )
+    

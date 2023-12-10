@@ -11,11 +11,8 @@ def backtest_strategy(stock, start_date):
     """
     Function to backtest a strategy
     """
-    
-    # Get today's date
-    today = datetime.datetime.now().date()
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -61,6 +58,8 @@ data = __CCI ( data, 20 )
 
 if data['CCI_Signal'][-1] == 2:
     print_log ( 'cci_20', 'LONG', [ 'cci_20' ], backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "cci_20.py", ticker, FILE, interval )
 
 if data['CCI_Signal'][-1] == -2:
     print_log ( 'cci_20', 'SHORT', [ 'cci_20' ], backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "cci_20.py", ticker, FILE, interval )

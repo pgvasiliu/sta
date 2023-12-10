@@ -12,7 +12,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -69,7 +69,9 @@ ema_dist = data['Adj Close'].iloc[-1] - data['EMA_13'].iloc[-1]
 # BUY CRITERIA: price is above 13-EMA and both EMA and Bear Power is increasing
 if data['Adj Close'].iloc[-1] > data['EMA_13'].iloc[-1] and data['EMA_13'].iloc[-1] > data['EMA_13'].iloc[-2] and data['bear_power'].iloc[-1] > data['bear_power'].iloc[-2]:
     print_log ( 'elder_ray_ema_13.py', 'LONG-TREND', [ 'EMA_13', 'bull_power' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "elder_ray_ema_13.py", ticker, FILE, interval )
 
 # SELL CRITERIA: price is below 13-EMA and both EMA and Bull Power is decreasing
 if data['Adj Close'].iloc[-1] < data['EMA_13'].iloc[-1] and data['EMA_13'].iloc[-1] < data['EMA_13'].iloc[-2] and data['bull_power'].iloc[-1] < data['bull_power'].iloc[-2]:
     print_log ( 'elder_ray_ema_13.py', 'SHORT-TREND', [ 'EMA_13', 'bear_power' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "elder_ray_ema_13.py", ticker, FILE, interval )

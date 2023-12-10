@@ -11,7 +11,7 @@ def backtest_strategy (stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -65,14 +65,13 @@ if (line.iloc[-1] < 0 and signal.iloc[-1] < 0 and line.iloc[-2] < 0 and signal.i
     ((line.iloc[-1] > signal.iloc[-1] and line.iloc[-2] < signal.iloc[-2]) or (
     line.iloc[-1] < signal.iloc[-1] and line.iloc[-2] > signal.iloc[-2])):
     print_log ( 'tsi2', 'LONG', [ 'TSI' ], backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "tsi2.py", ticker, FILE, interval )
+
 
 # SELL CRITERIA1: if TSI line and signal line has crossed above 0 and TSI line crosses signal
 if (line.iloc[-1] > 0 and signal.iloc[-1] > 0 and line.iloc[-2] > 0 and signal.iloc[-2] > 0) and \
     ((line.iloc[-1] < signal.iloc[-1] and line.iloc[-2] > signal.iloc[-2]) or (
     line.iloc[-1] > signal.iloc[-1] and line.iloc[-2] < signal.iloc[-2])):
     print_log ( 'tsi2', 'SHORT', [ 'TSI' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
-
-
-
+    plot ( "tsi2.py", ticker, FILE, interval )
 

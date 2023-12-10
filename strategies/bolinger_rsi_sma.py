@@ -5,7 +5,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -54,6 +54,7 @@ data = __SMA ( data, 13 )
 
 if ( ( data['SMA_13'][-1] > data['BB_middle'][-1] ) and ( data['RSI_14'][-1] < 50 ) ):
     print_log ( 'bolinger_rsi_sma.py', 'LONG', [ 'BB', 'RSI', 'SMA_13' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "bolinger_rsi_sma.py", ticker, FILE, interval )
 
 if ( ( data['SMA_13'][-1] < data['BB_middle'][-1] ) and ( data["RSI_14"][-1] > 50 ) ):
     print_log ( 'bolinger_rsi_sma.py', 'SHORT', [ 'BB', 'RSI', 'SMA_13' ] , backtest_strategy ( ticker , '2020-01-01' ) )

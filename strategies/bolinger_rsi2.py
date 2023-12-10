@@ -11,7 +11,7 @@ def backtest_strategy ( stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -54,8 +54,9 @@ def backtest_strategy ( stock, start_date):
 
 if ( (  data["RSI_14"][-1] < 30 ) & ( data["Adj Close"][-1]  < data["BB_lower"][-1] ) ):
     print_log ( 'bolinger_rsi2.py', 'LONG', [ 'BB', 'RSI_14' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "bolinger_rsi2.py", ticker, FILE, interval )
 
 #SELL if price is above high bollinger band as rsi is greater than 70
 if ( ( data['Adj Close'][-1] >= data['BB_upper'][-1] ) & ( data['RSI_14'][-1] >= 70 ) ):
     print_log ( 'bolinger_rsi2.py', 'SHORT', [ 'BB', 'RSI_14' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "bolinger_rsi2.py", ticker, FILE, interval )

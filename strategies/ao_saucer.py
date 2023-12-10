@@ -13,7 +13,7 @@ def backtest_strategy ( stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -76,7 +76,9 @@ curr_200ema = data['EMA_200'].iloc[-1]
 # BUY CRITERIA: CONSECUTIVELY: all 3 bars positive, 2 decreasing awesome oscillator values followed by an increase, and close is above the 200EMA
 if ( bar_1 > 0 ) and ( bar_2 > 0 ) and ( bar_3 > 0 ) and ( bar_1 > bar_2 ) and ( bar_2 < bar_3 ) and ( curr_close > curr_200ema ):
     print_log ( 'ao_saucer.py', 'LONG', [ 'EMA_200', 'AO' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao_saucer.py", ticker, FILE, interval )
 
 # SELL CRITERIA: CONSECUTIVELY: all 3 bars negative, 2 increasing awesome oscillator values followed by a decrease, and close is below the 200EMA
 if ( bar_1 < 0 ) and ( bar_2 < 0 ) and ( bar_3 < 0 ) and ( bar_1 < bar_2 ) and ( bar_2 > bar_3 ) and ( curr_close < curr_200ema ):
     print_log ( 'ao_saucer.py', 'SHORT', [ 'EMA_200', 'AO' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao_saucer.py", ticker, FILE, interval )

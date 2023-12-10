@@ -8,7 +8,7 @@
 
 
 # Optimal ticker interval for the strategy.
-timeframe = '5m'
+#timeframe = '5m'
 
 # SMA 5, SMA 8
 data = __DWMA ( data, 20 )
@@ -19,7 +19,7 @@ def backtest_strategy(stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -62,6 +62,8 @@ def backtest_strategy(stock, start_date):
 
 if data["DWMA_20"][-1] > data["Adj Close"][-1] and data["DWMA_20"][-2] < data["Adj Close"][-2]:
     print_log ( 'dwma_20_close_cross.py', 'LONG', [ 'DWMA_20', 'DWMA_50', 'DWMA_20_close_cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "dwma_20_close_cross.py", ticker, FILE, interval )
 
 if data["DWMA_20"][-1] < data["Adj Close"][-1] and data["DWMA_20"][-2]  > data["Adj Close"][-2]:
     print_log ( 'dwma_20_close_cross.py', 'SHORT', [ 'DWMA_20', 'DWMA_50', 'DWMA_20_50_cross' ], backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "dwma_20_close_cross.py", ticker, FILE, interval )
