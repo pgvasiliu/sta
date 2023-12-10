@@ -5,10 +5,9 @@ def backtest_strategy ( stock, start_date ):
     Function to backtest a strategy
     """
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(script_dir)
-
-    filename, ext =  os.path.splitext(os.path.basename(__file__))
+    #script_dir = os.path.dirname(os.path.abspath(__file__))
+    #parent_dir = os.path.dirname(script_dir)
+    #filename, ext =  os.path.splitext(os.path.basename(__file__))
 
     global FILE
     # if the file was downloaded today, read from it
