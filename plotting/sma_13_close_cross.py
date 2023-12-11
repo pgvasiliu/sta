@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--ticker', nargs='+', required=True,  type=str, help='ticker')
 parser.add_argument('-c', '--csv_file', required=True,  type=str, help='csv_file')
 parser.add_argument('-i', '--interval', required=True,  type=str, help='interval')
-args = parser.parse_args()parse_args()
+args = parser.parse_args()
 
 start_date = "2020-01-01"
 

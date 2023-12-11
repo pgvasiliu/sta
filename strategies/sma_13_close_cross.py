@@ -58,6 +58,6 @@ if ( ( data["Adj Close"][-1] > data["SMA_13"][-1] ) and ( data["Adj Close"][-2] 
 
 # Price crossunder SMA 13
 if ( ( data["Adj Close"][-1] < data["SMA_13"][-1] ) and ( data["Adj Close"][-2] > data["SMA_13"][-2] ) ):
-    print_log ( 'sma_13_close_cross.py', 'SHORT', [ 'SMA_13', 'Close', 'cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    print_log ( "sma_13_close_cross.py", 'SHORT', [ 'SMA_13', 'Close', 'cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
     plot ( "sma_13_close_cross.py", ticker, FILE, interval )
 

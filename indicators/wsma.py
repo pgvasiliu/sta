@@ -40,7 +40,8 @@ for symbol in args.ticker:
         data = yf.download(symbol, start=start_date, progress=False)
         data.to_csv ( csv_file )
 
-data = __WSMA ( data, window )
+    data = __WSMA ( data, window )
+    data = __WSMA ( data, 16 )
 
     # Print first 10 rows of updated dataframe
     print ( data.tail(3) )

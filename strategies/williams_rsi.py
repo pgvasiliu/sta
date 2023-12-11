@@ -8,7 +8,6 @@ an 8 period rsi.
 """
 
 
-
 def backtest_strategy(stock, start_date ):
     """
     Function to backtest a strategy
@@ -65,10 +64,11 @@ data = __WR ( data, 14 )
 if ( ( ( data['WR_14'][-3] < -70) | (data['WR_14'][-2] < -70) | (data['WR_14'][-1] < -70) | (data['WR_14'][-4] < -70))
     & (( data['RSI_8'][-1] < 30) | (data['RSI_8'][-2] < 30) | (data['RSI_8'][-3] < 30)) ):
     print_log ( 'williams_rsi.py', 'LONG', [ 'RSI_8', 'WR_14' ] , backtest_strategy ( ticker , '2020-01-01' ))
-    plot ( "williams_rsi.py", ticker, FILE, interval )
+    plot ( 'williams_rsi.py', ticker, FILE, interval )
 
 # SELL signal: when williams indicator is greater than -30 and rsi is greater than 70 within last 3 candles
 if ( ( ( data['WR_14'][-3] > -30) | (data['WR_14'][-2] > -30) | (data['WR_14'][-1] > -30) | (data['WR_14'][-4] > -30))
     & ((data['RSI_8'][-1] > 70) | (data['RSI_8'][-2] > 70) | (data['RSI_8'][-3] > 70)) ):
     print_log ( 'williams_rsi.py', 'SHORT', [ 'RSI_8', 'WR_14' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-    plot ( "williams_rsi.py", ticker, FILE, interval )
+    plot ( 'williams_rsi.py', ticker, FILE, interval )
+

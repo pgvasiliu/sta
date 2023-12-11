@@ -474,7 +474,7 @@ while True:
 
 
         #########  Weighted SMA 20, 50  #####
-        for i in [ 20, 50 ]:
+        for i in [ 16, 20, 50 ]:
             data = __WSMA ( data, i, cl=cl )
 
         data['WSMA_20_50_Signal'] = np.select(
@@ -483,7 +483,7 @@ while True:
             [2, -2])
 
         #########  WMA & Double WMA  ##### 
-        for i in [ 9, 14, 20 ]:
+        for i in [ 9, 14, 16, 20 ]:
             data = WMA ( data, i, cl=cl )
 
 
@@ -658,7 +658,7 @@ while True:
         # Load strategy files from command line
         if args.strategies:
             for strategy_file in args.strategies:
-                  #print ("Loading file: strategies/" + strategy_file)
+                  print ("Loading file: strategies/" + strategy_file)
                   with open ( 'strategies/' + strategy_file ) as f: exec(f.read())
                   
 
@@ -670,7 +670,7 @@ while True:
             files_py = sorted ( files_py )
 
             for strategy_file in files_py:
-                #print ("Loading file: strategies/" + strategy_file)
+                print ("Loading file: strategies/" + strategy_file)
                 with open ( 'strategies/' + strategy_file ) as f: exec(f.read())
 
         #data.to_csv('data/{}_{}.csv'.format (ticker, interval), float_format='%.2f' )
