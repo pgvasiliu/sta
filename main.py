@@ -351,11 +351,14 @@ while True:
                 discord_message = '  {:8s}  {:10s}   {:8s}%  {:30s} '.format ( ticker, "NA" , "NA", message )
                 send_discord_message (discord_url, ticker, long_short, discord_message)
 
-    counter += 1
-    print ("-------------------------  %d  -------------------------" % counter) 
+    counter = 0
+    #print ("-------------------------  %d  -------------------------" % counter) 
 
     # Use the list of stocks and integer value in the script
-    for ticker in args.tickers:
+    for ticker in sorted (args.tickers):
+
+        counter += 1
+        print ("-------------------------  %d  -------------------------" % counter) 
 
         #my_list = list ( set ( strategies[ticker] ))
         discord_message = ''
@@ -698,7 +701,9 @@ while True:
         if ( len ( sig_bear ) > 0 ):
             print ( "Bear signals: \n" + '\n'.join ( sig_bear ) )
 
-
+        print ("")
+        print ("")        
+    
     #print ( strategies )
     #print ( indicators )
 
