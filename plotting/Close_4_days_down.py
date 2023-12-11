@@ -31,6 +31,11 @@ if __name__ == '__main__':
         # Load stock data
         filename, ext =  os.path.splitext(os.path.basename(__file__))
 
+        if not os.path.exists(args.csv_file):
+            # Get stock data from Yahoo Finance
+            data = yf.download(symbol, start='2020-01-01', interval=args.interval, progress=False, threads=True )
+            data.to_csv ( '{}'.format ( args.csv_file ) )
+        
         data = pd.read_csv ( args.csv_file, index_col='Date' )
 
         data["Signal"] = 0.0
