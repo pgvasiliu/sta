@@ -85,9 +85,11 @@ def implement_adx_strategy(prices, pdi, ndi, adx):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--ticker', nargs='+',  type=str, required=True, help='ticker')
-
+    parser.add_argument('-t', '--ticker', nargs='+', required=True,  type=str, help='ticker')
+    parser.add_argument('-c', '--csv_file', required=True,  type=str, help='csv_file')
+    parser.add_argument('-i', '--interval', required=True,  type=str, help='interval')
     args = parser.parse_args()
+    
     start_date = "2020-01-01"
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -97,18 +99,7 @@ if __name__ == '__main__':
 
         filename, ext =  os.path.splitext(os.path.basename(__file__))
 
-        csv_file = "{}/data/{}_1d.csv".format( parent_dir, symbol )
-
-        # Get today's date
-        today = datetime.datetime.now().date()
-
-        # if the file was downloaded today, read from it
-        if os.path.exists(csv_file) and (lambda file_path: datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_path)) < datetime.timedelta(minutes=60))(csv_file):
-            data = pd.read_csv ( csv_file, index_col='Date' )
-        else:
-            # Download data
-            data = yf.download ( symbol, start=start_date, progress=False)
-            data.to_csv ( csv_file )
+        data = pd.read_csv ( args.csv_file, index_col='Date' )
 
         data = __ADX ( data, 14 )
 
@@ -131,7 +122,10 @@ if __name__ == '__main__':
 
         plt.xticks(rotation=45)
 
-        #plt.show()
-        filename = "{}/plotting/_plots/{}_{}.png".format ( parent_dir, symbol, filename )
-        plt.savefig ( filename )
-
+    #plt.show()
+    SAVE_TO = "{}/plotting/_plots/{}/{}".format ( parent_dir, symbol, args.interval ) 
+    if not os.path.exists(SAVE_TO):
+        os.makedirs(SAVE_TO, exist_ok=True)
+    filename = "{}/{}_{}.png".format ( SAVE_TO, symbol, filename )
+    plt.savefig ( filename )
+    plt.clf()  # Clear the plot for the next iteration
