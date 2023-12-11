@@ -30,7 +30,7 @@ git push origin --tags
 
 # Create a new release on GitHub (assuming you use GitHub releases)
 curl -X POST \
-  -H "Authorization: token $GITHUB_TOKEN"
+  -H "Authorization: token $GITHUB_TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/pgvasiliu/sta/releases \
   -d "{\"tag_name\":\"$new_version\",\"name\":\"Release $new_version\",\"body\":\"Release notes for $new_version\"}" && echo "Release $new_version created successfully."
