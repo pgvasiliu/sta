@@ -13,9 +13,6 @@ Run the code in that shell:
     python main.py -i 1d -t AAPL SPY 
 ```
 
-
-
-
 ```
 $ mkdir project
 $ cd project
