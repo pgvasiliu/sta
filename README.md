@@ -1,5 +1,19 @@
 # sta
 
+
+```
+Windows setup
+Download https://github.com/winpython/winpython/releases/download/6.0.20230219/Winpython64-3.10.10.0b2.exe
+Unzip / Install the file to a folder
+Grab the repository as zip file and uncompress under "scripts" folder ( WPy64-310110\scripts\project_x )
+Run "WinPython Command Prompt" in WPy64-310110 folder
+Run the code in that shell:
+    cd project_x
+    pip install -r requirements.txt
+    python main.py -i 1d -t AAPL SPY 
+```
+
+
 ```
 $ mkdir project
 $ cd project
