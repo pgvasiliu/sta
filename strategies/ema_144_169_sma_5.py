@@ -5,7 +5,7 @@ def backtest_strategy(stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -65,8 +65,9 @@ sma_5   = data['SMA_5']
 # BUY CRITERIA: closing price is above SMA and 144-period EMA is above 169-period EMA
 if (close.iloc[-1] > sma_5.iloc[-1]) and (ema_144.iloc[-1] > ema_169.iloc[-1] ):
     print_log ( 'ema_144_169_sma_5.py', 'LONG_TREND', [ 'EMA_144', 'EMA_169', 'SMA_5' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ema_144_169_sma_5.py", ticker, FILE, interval )
 
 # SELL CRITERIA: if closing price is below SMA and 169-period EMA is above 144-period EMA
 if (close.iloc[-1] < sma_5.iloc[-1]) and (ema_169.iloc[-1] > ema_144.iloc[-1] ):
     print_log ( 'ema_144_169_sma_5.py', 'SHORT_TREND', [ 'EMA_144', 'EMA_169', 'SMA_5' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "ema_144_169_sma_5.py", ticker, FILE, interval )

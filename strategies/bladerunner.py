@@ -12,7 +12,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -55,7 +55,10 @@ data = __EMA ( data, 20 )
 # BUY if first candle stick touches ema and then next candle stick rebounds off it
 if ( ( data['Low'].iloc[-2] <= data['EMA_20'].iloc[-2] and data['EMA_20'].iloc[-2] <= data['High'].iloc[-2]) & (data['Adj Close'].iloc[-1] > data['Adj Close'].iloc[-2])):
     print_log ( 'bladerunner.py', 'LONG', [ 'EMA_20', 'close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "bladerunner", ticker, FILE, interval )
+
 
 # SELL if first candle stick touches ema and then next candle stick rebounds off it
 if ( ( data['Low'].iloc[-2] <= data['EMA_20'].iloc[-2] and data['EMA_20'].iloc[-2] <= data['High'].iloc[-2]) & (data['Adj Close'].iloc[-1] < data['Adj Close'].iloc[-2])):
     print_log ( 'bladerunner.py', 'SHORT', [ 'EMA_20', 'close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "bladerunner", ticker, FILE, interval )

@@ -20,7 +20,7 @@ def backtest_strategy ( stock, start_date ):
     #    data = yf.download(stock, start=start_date, progress=False)
     #    data.to_csv ( csv_file )
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
     
@@ -60,6 +60,8 @@ def backtest_strategy ( stock, start_date ):
 
 if ( data["AO"].iloc[-1] > 0 ) and ( data["AO"].iloc[-2] < 0 ):
     print_log ( 'ao.py', 'LONG', [ 'AO', 'AO_cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao", ticker, FILE, interval )
 
 if ( data["AO"].iloc[-1] < 0 ) and ( data["AO"].iloc[-2] > 0 ):
     print_log ( 'ao.py', 'SHORT', [ 'AO', 'AO_cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao", ticker, FILE, interval )

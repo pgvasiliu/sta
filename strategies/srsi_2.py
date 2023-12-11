@@ -12,7 +12,7 @@ def backtest_strategy (stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -60,7 +60,10 @@ data = __STOCHASTIC_RSI ( data, period=14, SmoothD=3, SmoothK=3 )
 
 if ( data['SRSI_K'][-1] > 20 and data['SRSI_D'][-1] > 20 ):
     print_log ( 'srsi_2.py', 'LONG-TREND', [ 'SRSI' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "srsi_2.py", ticker, FILE, interval )
+
 
 if ( data['SRSI_K'][-1] < 80 and data['SRSI_D'][-1] < 80 ):
     print_log ( 'srsi_2.py', 'SHORT-TREND', [ 'SRSI' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "srsi_2.py", ticker, FILE, interval )
 

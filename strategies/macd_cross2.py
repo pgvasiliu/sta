@@ -9,7 +9,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -54,10 +54,12 @@ if (    data["MACD"].iloc[-1] < 0 and data['MACD_SIGNAL'].iloc[-1] < 0 and data[
         data["MACD"].iloc[-3] < 0 and data['MACD_SIGNAL'].iloc[-3] < 0) and \
     ( ( data["MACD"].iloc[-3] > data['MACD_SIGNAL'].iloc[-3] and data["MACD"].iloc[-1] < data['MACD_SIGNAL'].iloc[-1]) or ( data["MACD"].iloc[-3] < data['MACD_SIGNAL'].iloc[-3] and data["MACD"].iloc[-1] > data['MACD_SIGNAL'].iloc[-1])):
     print_log ( 'macd_cross2.py', 'LONG', [ 'MACD' ] , backtest_strategy ( ticker , '2020-01-01' ))
+    plot ( "macd_cross2.py", ticker, FILE, interval )
 
 # SELL CRITERIA: if MACD line has crossed signal line and are > 0
 if (    data["MACD"].iloc[-1] > 0 and data['MACD_SIGNAL'].iloc[-1] > 0 and data["MACD"].iloc[-2] > 0 and data['MACD_SIGNAL'].iloc[-2] > 0 and 
         data['MACD'].iloc[-3] > 0 and data['MACD_SIGNAL'].iloc[-3] > 0) and \
     ( ( data["MACD"].iloc[-3] < data['MACD_SIGNAL'].iloc[-3] and data["MACD"].iloc[-1] > data['MACD_SIGNAL'].iloc[-1] ) or ( data["MACD"].iloc[-3] > data['MACD_SIGNAL'].iloc[-3] and data["MACD"].iloc[-1] < data['MACD_SIGNAL'].iloc[-1])):
     print_log ( 'macd_cross2.py', 'SHORT', [ 'MACD' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "macd_cross2.py", ticker, FILE, interval )
 

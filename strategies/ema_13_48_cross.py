@@ -8,7 +8,7 @@
 
 
 # Optimal ticker interval for the strategy.
-timeframe = '5m'
+#timeframe = '5m'
 
 # SMA 5, SMA 8
 data = __EMA  ( data, 13 )
@@ -19,7 +19,7 @@ def backtest_strategy(stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -63,7 +63,8 @@ def backtest_strategy(stock, start_date):
 
 if ( data["EMA_13"][-1] > data["EMA_48"][-1] ) and ( data["EMA_13"][-2] <= data["EMA_48"][-2] ):
     print_log ( 'ema_13_48_cross.py', 'LONG', [ 'EMA_13', 'EMA_48', 'EMA_13_48_cross over' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ema_13_48_cross.py", ticker, FILE, interval )
 
 if ( data["EMA_13"][-1] < data["EMA_48"][-1] ) and ( data["EMA_13"][-2]  >= data["EMA_48"][-2] ):
     print_log ( 'ema_13_48_cross.py', 'SHORT', [ 'EMA_13', 'EMA_48', 'EMA_13_48_cross under' ], backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "ema_13_48_cross.py", ticker, FILE, interval )

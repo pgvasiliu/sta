@@ -5,7 +5,7 @@ def backtest_strategy ( stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -58,9 +58,12 @@ if  data['AO'].iloc[-4] <= 0 and data['AO'].iloc[-3] >= 0 and \
     data['AO'].iloc[-2] > data['AO'].iloc[-3] and \
     data['AO'].iloc[-1] > data['AO'].iloc[-2]:
     print_log ( 'ao_cross2.py', 'LONG', [ 'AO' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao_cross2.py", ticker, FILE, interval )
+
 
 # SELL CRITERIA: awesome oscillator crosses from above to below the zero line, followed by 3 decreasing values
 if data['AO'].iloc[-4]  >= 0 and data['AO'].iloc[-3] <= 0 and \
     data['AO'].iloc[-2] < data['AO'].iloc[-3] and \
     data['AO'].iloc[-1] < data['AO'].iloc[-2]:
     print_log ( 'ao_cross2.py', 'SHORT', [ 'AO' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ao_cross2.py", ticker, FILE, interval )

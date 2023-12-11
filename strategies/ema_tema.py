@@ -28,7 +28,7 @@ def backtest_strategy(stock, start_date):
     #    return data
 
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -87,8 +87,9 @@ ema_9_1    = data["EMA_9"].iloc[-2]
 
 if ( _close > tema_30 ) and ( tema_30 > tema_30_1 ) and ( _close > _close_1 ) and ( _close > ema_9 ) and ( ema_9 > ema_9_1) and ( ema_9 > tema_30):
     print_log ( 'ema_tema.py', 'LONG-TREND', [ 'Close', 'EMA_9', 'TEMA_30' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ema_tema.py", ticker, FILE, interval )
 
 if ( _close < tema_30 ) and ( tema_30 < tema_30_1 ) and ( _close < _close_1) and ( _close < ema_9 ) and ( ema_9 < ema_9_1):
     print_log ( 'ema_tema.py', 'SHORT-TREND', [ 'Close', 'EMA_9', 'TEMA_30' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "ema_tema.py", ticker, FILE, interval )
 

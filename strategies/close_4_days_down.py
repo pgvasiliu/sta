@@ -12,7 +12,7 @@ def backtest_strategy(stock, start_date):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(script_dir)
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -49,6 +49,8 @@ def backtest_strategy(stock, start_date):
 
 if ( ( data["Adj Close"][-1] > data["Adj Close"][-2] > data["Adj Close"][-3] < data["Adj Close"][-4] ) ):
     print_log ( 'close_4_days_down.py', 'LONG', [ 'Close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "close_4_days_down.py", ticker, FILE, interval )
 
 if ( ( data["Adj Close"][-1] > data["Adj Close"][-2] > data["Adj Close"][-3] ) ):
     print_log ( 'close_4_days_down.py', 'SHORT', [ 'Close' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "close_4_days_down.py", ticker, FILE, interval )

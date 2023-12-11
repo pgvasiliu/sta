@@ -7,7 +7,7 @@ def backtest_strategy(stock, start_date):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -52,7 +52,9 @@ data = __CCI  ( data, 20 )
 
 if ( ( data['MACD_Signal'].iloc[-1] == 2 ) and ( data['CCI_20'][-1] <= -50.0 )):
     print_log ( 'macd_cross_cci_20.py', 'LONG', [ 'CCI', 'MACD', 'MACD crossover' ] , backtest_strategy ( ticker , '2020-01-01' ))
+    plot ( "macd_cross_cci_20.py", ticker, FILE, interval )
 
 if ( ( data['MACD_Signal'].iloc[-1] == -2 ) and ( data['CCI_20'][-1] >= 100.0) ):
     print_log ( 'macd_cross_cci_20.py', 'SHORT', [ 'CCI', 'MACD', 'MACD crossunder' ] , backtest_strategy ( ticker , '2020-01-01' ))
+    plot ( "macd_cross_cci_20.py", ticker, FILE, interval )
 

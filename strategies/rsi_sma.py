@@ -10,7 +10,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -58,9 +58,10 @@ data = __SMA ( data, 200 )
 # Buy when RSI2 between 0 and 10, and price above 200sma but below 5sma
 if data['RSI_2'].iloc[-1] < 10 and data['Adj Close'].iloc[-1] > data['SMA_200'].iloc[-1] and data['Adj Close'].iloc[-1] < data['SMA_5'].iloc[-1]:
     print_log ( 'rsi_sma.py', 'LONG', [ 'SMA_5', 'SMA_200', 'RSI_2' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "rsi_sma.py", ticker, FILE, interval )
 
 # Sell when RSI2 between 90 and 100, and price below 200sma but above 5sma
 if data['RSI_2'].iloc[-1] > 90 and data['Adj Close'].iloc[-1] < data['SMA_200'].iloc[-1] and data['Adj Close'].iloc[-1] > data['SMA_5'].iloc[-1]:
     print_log ( 'rsi_sma.py', 'SHORT', [ 'SMA_5', 'SMA_200', 'RSI_2' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-
+    plot ( "rsi_sma.py", ticker, FILE, interval )
 

@@ -11,7 +11,7 @@ def backtest_strategy(stock, start_date ):
     Function to backtest a strategy
     """
 
-    global FILE
+    global FILE, interval
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
 
@@ -63,8 +63,10 @@ histogram = data['MACD_HIST']
 # BUY CRITERIA: 9EMA crosses above 21EMA followed by a MACD histogram crossover ito positives
 if ( data["EMA_9"].iloc[-2] > data["EMA_21"].iloc[-2] and data["EMA_9"].iloc[-3] < data["EMA_21"].iloc[-3]) and ( (histogram.iloc[-1] > 0 and histogram.iloc[-2] < 0) or (histogram.iloc[-1] < 0 and histogram.iloc[-2] > 0)):
     print_log ( 'ema_9_21_macd.py', 'LONG', [ 'EMA_9', 'EMA_21', 'MACD' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ema_9_21_macd.py", ticker, FILE, interval )
 
 # SELL CRITERIA: 9EMA crosses below 21EMA followed by a MACD histogram crossover into negatives
 if ( data["EMA_9"].iloc[-2] < data["EMA_21"].iloc[-2] and data["EMA_9"].iloc[-3] > data["EMA_21"].iloc[-3]) and ( ( histogram.iloc[-1] < 0 and histogram.iloc[-2] > 0) or (histogram.iloc[-1] > 0 and histogram.iloc[-2] < 0)):
     print_log ( 'ema_9_21_macd.py', 'SHORT', [ 'EMA_9', 'EMA_21', 'MACD' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "ema_9_21_macd.py", ticker, FILE, interval )
 
