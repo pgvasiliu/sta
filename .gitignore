@@ -1,0 +1,5 @@
+# ignore all logs
+*.log
+data/*.csv
+plotting/_plots/*.png
+util/__pycache__/*.pyc
