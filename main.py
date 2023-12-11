@@ -329,7 +329,7 @@ while True:
 
         #print ( my_list )
         if strategy_name not in my_list:
-            print ( ind)
+            #print ( ind)
             number = int(ind)
             #number = int(''.join(filter(str.isdigit, ind[0])))
 
