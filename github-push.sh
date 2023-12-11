@@ -9,7 +9,8 @@ elif [ -z "$GITHUB_TOKEN" ]; then
   exit 1
 fi
 
-git config user.email "pg.vasiliu@gmail.com"
+git config user.email "anon@email.com"
+git config user.name "Scraped"
 
 # Get the current version from the latest Git tag
 current_version=$(git describe --tags --abbrev=0)
