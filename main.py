@@ -305,12 +305,11 @@ for ticker in args.tickers:
 
 while True:
 
-    def print_log ( strategy_name, long_short='LONG', perc=0, *ind):
-        my_list = sorted ( set ( strategies[ticker] ) )
-
+    def plot (strategy_name, ticker, csv_file, interval):
+        
         spath = "plotting/{}".format ( strategy_name )
         if ( os.path.exists ( spath )):
-            command = ['python3', spath, '-t', ticker]
+            command = ['python3', spath, '-t', ticker, '--csv_file', csv_file, '--interval', interval ]
             try:
                 result = subprocess.run(command, capture_output=True, text=True, check=True)
                 # Check if the command was successful
@@ -321,7 +320,12 @@ while True:
                 #    # Print an error message
                 #    print("Error:", result.stderr)
             except subprocess.CalledProcessError as e:
-                print(f"Script execution failed with error:\n{e.stderr}")
+                print(f"Script execution failed with error:\n{e.stderr}")       
+
+
+                
+    def print_log ( strategy_name, long_short='LONG', perc=0, *ind):
+        my_list = sorted ( set ( strategies[ticker] ) )
 
         #print ( my_list )
         if strategy_name not in my_list:

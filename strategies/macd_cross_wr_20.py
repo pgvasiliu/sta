@@ -51,5 +51,5 @@ if ( data["WR_20"][i-1] > -50 and data["WR_20"][i] < -50 and data["MACD"][i] > d
     plot ( "macd_cross_wr_20.py", ticker, FILE, interval )
 
 if ( data["WR_20"][i-1] < -50 and data["WR_20"][i] > -50 and data["MACD"][i] < data["MACD_SIGNAL"][i] ):
-   print_log ( 'macd_cross_wr_20.py', 'SHORT', [ 'MACD', 'WR_20' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    print_log ( 'macd_cross_wr_20.py', 'SHORT', [ 'MACD', 'WR_20' ] , backtest_strategy ( ticker , '2020-01-01' ) )
     plot ( "macd_cross_wr_20.py", ticker, FILE, interval )
