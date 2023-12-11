@@ -60,11 +60,11 @@ data = __WSMA ( data, 16 )
 
 # Price crossover WSMA 20
 if ( ( data["Adj Close"][-1] > data["WSMA_20"][-1] ) and ( data["Adj Close"][-2] < data["WSMA_20"][-2] ) ):
-    print_log ( 'wsma_16_close_cross.py', 'LONG', [ 'SMA_20', 'Close', 'cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-    plot ( "wsma_16_close_cross.py", ticker, FILE, interval )
+    print_log ( 'wma_16_close_cross.py', 'LONG', [ 'SMA_20', 'Close', 'cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "wma_16_close_cross.py", ticker, FILE, interval )
     
 
 # Price crossunder WSMA 20
 if ( ( data["Adj Close"][-1] < data["WSMA_20"][-1] ) and ( data["Adj Close"][-2] > data["WSMA_20"][-2] ) ):
-    print_log ( 'wsma_16_close_cross.py', 'SHORT', [ 'SMA_20', 'Close', 'cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
-    plot ( "wsma_16_close_cross.py", ticker, FILE, interval )
+    print_log ( 'wma_16_close_cross.py', 'SHORT', [ 'SMA_20', 'Close', 'cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )
+    plot ( "wma_16_close_cross.py", ticker, FILE, interval )
