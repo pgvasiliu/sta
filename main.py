@@ -357,16 +357,37 @@ while True:
 
         now = datetime.datetime.now()
 
-
         # Get stock data from Yahoo Finance
-        data = yf.download(ticker, period=period, interval = interval, progress=False, threads=True )
+        data = yf.download(ticker, period=period, interval=interval, progress=False, threads=True )
         #data['CL'] = data['Close'].copy()
-        data.to_csv('data/{}_1d.csv'.format ( ticker ), float_format='%.2f')
+        #data.to_csv('data/{}_{}.csv'.format ( ticker, interval ), float_format='%.2f')
+        
+        
+        '''
+        csv_file = "./data/{}_1d.csv".format( stock )
 
+        # Get today's date
+        today = datetime.datetime.now().date()
+
+        # if the file was downloaded today, read from it
+        #if  ( ( os.path.exists ( csv_file ) ) and ( datetime.datetime.fromtimestamp ( os.path.getmtime ( csv_file ) ).date() == today ) ):
+        if os.path.exists(csv_file) and (lambda file_path: datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_path)) < datetime.timedelta(minutes=60))(csv_file):
+            data = pd.read_csv ( csv_file, index_col='Date' )
+        else:
+            # Download data
+            data = yf.download(stock, start=start_date, progress=False)
+            data.to_csv ( csv_file )
+        '''
+        
+        
+        FILE = 'data/{}_{}.csv'.format ( ticker, interval )
+        data.to_csv ( '{}'.format ( FILE ) )
+        
         # We need to fetch daily data in order to get strategy return numbers
-        if ( period != '1d' ):
-            data_1d = yf.download ( ticker, start='2020-01-01', progress=False, threads=True )
-
+        #if ( period != '1d' ):
+        #    data_1d = yf.download ( ticker, start='2020-01-01', progress=False, threads=True )
+        #    df = yf.download(ticker, start='2020-01-01', interval='1mo')
+            
 
         # Current price, percentage from the previous day
 
@@ -384,40 +405,40 @@ while True:
 
 
         # FIBONACCI #
-        with open ( 'util/fib.py') as f: exec(f.read())
+        #with open ( 'util/fib.py') as f: exec(f.read())
 
 
-        fib_path = "scripts/fibonacci.py"
-        fib_name = 'camarilla'
+        #fib_path = "scripts/fibonacci.py"
+        #fib_name = 'camarilla'
 
-        if ( os.path.exists ( fib_path )):
-            command = ['python3', fib_path, '-t', ticker, '-f', fib_name]
-            try:
-                result = subprocess.run(command, capture_output=True, text=True, check=True)
-                # Check if the command was successful
-                if result.returncode == 0:
-                    # Print the output on the screen
-                    print(result.stdout)
-                else:
-                    # Print an error message
-                    print("Error:", result.stderr)
-            except subprocess.CalledProcessError as e:
-                print(f"Script execution failed with error:\n{e.stderr}")
+        #if ( os.path.exists ( fib_path )):
+        #    command = ['python3', fib_path, '-t', ticker, '-f', fib_name]
+        #    try:
+        #        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        #        # Check if the command was successful
+        #        if result.returncode == 0:
+        #            # Print the output on the screen
+        #            print(result.stdout)
+        #        else:
+        #            # Print an error message
+        #            print("Error:", result.stderr)
+        #    except subprocess.CalledProcessError as e:
+        #        print(f"Script execution failed with error:\n{e.stderr}")
 
         #####  FIB !!!  #####
-        print ( "%s 1d --->  INFO  (FIBs)     ---> %s" % ( ticker, fib ( data ) ) )
-        lower, upper, lower_percentage, upper_percentage = find_position_in_dictionary ( fib ( data ), current_price)
-        print (f"                            FIB  Lower value: {lower}, {lower_percentage:.2f} %  away")
-        print (f"                            FIB  Upper value: {upper}, {upper_percentage:.2f} %  away")
-        print ()
+        #print ( "%s 1d --->  INFO  (FIBs)     ---> %s" % ( ticker, fib ( data ) ) )
+        #lower, upper, lower_percentage, upper_percentage = find_position_in_dictionary ( fib ( data ), current_price)
+        #print (f"                            FIB  Lower value: {lower}, {lower_percentage:.2f} %  away")
+        #print (f"                            FIB  Upper value: {upper}, {upper_percentage:.2f} %  away")
+        #print ()
 
         #####  Support and R !!!  #####
         #print ( "         [%s] FIBs CAM ---> %s" % ( symbol,  pivot_levels(_open, _high, _low, _close) ) )
         #print ( "         [%s] ATR_band ---> (LOW %.2f, %.2f%% away )   CUR %s   (MAX %.2f, %.2f%% away)" % ( symbol, atr_band_lower, 100 - ( atr_band_lower * 100 / price ), price_string, atr_band_higher, 100 - ( price * 100 / atr_band_higher  ) ) )
-        print ( "%s 1d ---> INFO (SupplyRes)   ---> %s" % ( ticker, sr ( data ) ) )
-        position = find_position( sr ( data ), current_price )
-        print ( position )
-        print ()
+        #print ( "%s 1d ---> INFO (SupplyRes)   ---> %s" % ( ticker, sr ( data ) ) )
+        #position = find_position( sr ( data ), current_price )
+        #print ( position )
+        #print ()
 
 
         data['Fibonacci_0.236'] = data[cl].shift(0) * 0.236

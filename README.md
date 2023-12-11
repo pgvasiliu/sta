@@ -6,6 +6,7 @@ $ cd project
 $ python3 -m venv  env
 $ git clone https://github.com/pgvasiliu/sta 
 $ . env/bin/activate
+$ pip3 config set global.trusted-host "pypi.org files.pythonhosted.org pypi.python.org" --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
 $ pip3 install -r requirements.txt
 $ python3 main.py -i 1d -t AAPL SPY
 $ deactivate

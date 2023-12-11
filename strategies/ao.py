@@ -6,20 +6,24 @@ def backtest_strategy ( stock, start_date ):
     Function to backtest a strategy
     """
 
-    csv_file = "./data/{}_1d.csv".format( stock )
+    #csv_file = "./data/{}_1d.csv".format( stock )
 
     # Get today's date
-    today = datetime.datetime.now().date()
+    #today = datetime.datetime.now().date()
 
     # if the file was downloaded today, read from it
     #if  ( ( os.path.exists ( csv_file ) ) and ( datetime.datetime.fromtimestamp ( os.path.getmtime ( csv_file ) ).date() == today ) ):
-    if os.path.exists(csv_file) and (lambda file_path: datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_path)) < datetime.timedelta(minutes=60))(csv_file):
-        data = pd.read_csv ( csv_file, index_col='Date' )
-    else:
-        # Download data
-        data = yf.download(stock, start=start_date, progress=False)
-        data.to_csv ( csv_file )
+    #if os.path.exists(csv_file) and (lambda file_path: datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_path)) < datetime.timedelta(minutes=60))(csv_file):
+    #    data = pd.read_csv ( csv_file, index_col='Date' )
+    #else:
+    #    # Download data
+    #    data = yf.download(stock, start=start_date, progress=False)
+    #    data.to_csv ( csv_file )
 
+    global FILE
+    # if the file was downloaded today, read from it
+    data = pd.read_csv ( FILE, index_col='Date' )
+    
     # Calculate indicators
     data = __AO ( data, 5, 34 )
 
