@@ -274,7 +274,7 @@ parser.add_argument('-s', '--strategies', type=str, nargs='+', required=False, h
 parser.add_argument('-r', '--refresh', type=str, required=False, help='override default refresh settings, in seconds')
 
 # Add a positional argument for displaying strategy percentage
-parser.add_argument('-p', '--percentage', type=int, required=False, help='use strategies that return more than %%')
+parser.add_argument('-p', '--percentage', type=int, required=False, help='use strategies that return more than percentage')
 
 # Parse the command-line arguments
 args = parser.parse_args()
@@ -324,15 +324,17 @@ while True:
 
 
                 
-    def print_log ( strategy_name, long_short='LONG', perc=0, *ind):
+    def print_log ( strategy_name, long_short='LONG', perc=0, ind=0):
         my_list = sorted ( set ( strategies[ticker] ) )
 
         #print ( my_list )
         if strategy_name not in my_list:
-            number = int(''.join(filter(str.isdigit, ind[0])))
+            print ( ind)
+            number = int(ind)
+            #number = int(''.join(filter(str.isdigit, ind[0])))
 
             if ( args.percentage ):
-                if ( number >= args.percentage ):
+                if ( int(number) >= args.percentage ):
                     message = f"{ticker} {interval} ---> {long_short} ::: {strategy_name} ::: return {number} ::: {perc}"
                     logging.warning(message)
                     strategies[ticker].append(strategy_name)
@@ -363,35 +365,9 @@ while True:
 
         # Get stock data from Yahoo Finance
         data = yf.download(ticker, period=period, interval=interval, progress=False, threads=True )
-        #data['CL'] = data['Close'].copy()
-        #data.to_csv('data/{}_{}.csv'.format ( ticker, interval ), float_format='%.2f')
-        
-        
-        '''
-        csv_file = "./data/{}_1d.csv".format( stock )
-
-        # Get today's date
-        today = datetime.datetime.now().date()
-
-        # if the file was downloaded today, read from it
-        #if  ( ( os.path.exists ( csv_file ) ) and ( datetime.datetime.fromtimestamp ( os.path.getmtime ( csv_file ) ).date() == today ) ):
-        if os.path.exists(csv_file) and (lambda file_path: datetime.datetime.now() - datetime.datetime.fromtimestamp(os.path.getmtime(file_path)) < datetime.timedelta(minutes=60))(csv_file):
-            data = pd.read_csv ( csv_file, index_col='Date' )
-        else:
-            # Download data
-            data = yf.download(stock, start=start_date, progress=False)
-            data.to_csv ( csv_file )
-        '''
-        
         
         FILE = 'data/{}_{}.csv'.format ( ticker, interval )
         data.to_csv ( '{}'.format ( FILE ) )
-        
-        # We need to fetch daily data in order to get strategy return numbers
-        #if ( period != '1d' ):
-        #    data_1d = yf.download ( ticker, start='2020-01-01', progress=False, threads=True )
-        #    df = yf.download(ticker, start='2020-01-01', interval='1mo')
-            
 
         # Current price, percentage from the previous day
 
@@ -445,15 +421,14 @@ while True:
         #print ()
 
 
-        data['Fibonacci_0.236'] = data[cl].shift(0) * 0.236
-        data['Fibonacci_0.382'] = data[cl].shift(0) * 0.382
-        data['Fibonacci_0.50']  = data[cl].shift(0) * 0.50
-        data['Fibonacci_0.618'] = data[cl].shift(0) * 0.618
-        data['Fibonacci_1.00']  = data[cl].shift(0) * 1.00
-        data['Fibonacci_1.27']  = data[cl].shift(0) * 1.27
-        data['Fibonacci_1.618'] = data[cl].shift(0) * 1.618
-
-        data['candle_size'] = ( data[cl] - data['Open'] ) * ( data[cl] - data['Open'] ) / 2
+        #data['Fibonacci_0.236'] = data[cl].shift(0) * 0.236
+        #data['Fibonacci_0.382'] = data[cl].shift(0) * 0.382
+        #data['Fibonacci_0.50']  = data[cl].shift(0) * 0.50
+        #data['Fibonacci_0.618'] = data[cl].shift(0) * 0.618
+        #data['Fibonacci_1.00']  = data[cl].shift(0) * 1.00
+        ##data['Fibonacci_1.27']  = data[cl].shift(0) * 1.27
+        #data['Fibonacci_1.618'] = data[cl].shift(0) * 1.618
+        #data['candle_size'] = ( data[cl] - data['Open'] ) * ( data[cl] - data['Open'] ) / 2
 
         data = hammer ( data )
 
@@ -680,6 +655,7 @@ while True:
         # Load strategy files from command line
         if args.strategies:
             for strategy_file in args.strategies:
+                  #print ("Loading file: strategies/" + strategy_file)
                   with open ( 'strategies/' + strategy_file ) as f: exec(f.read())
                   
 

@@ -57,7 +57,7 @@ def backtest_strategy (stock, start_date):
     percentage = ( ( (total_returns - 100000) / 100000) * 100)
     percentage = "{:.0f}".format ( percentage )
 
-    return percentage + '%'
+    return percentage #+ '%'
 
 
 # BUY CRITERIA 1: if TSI line and signal line is below 0 and tsi crosses signal line

@@ -40,7 +40,7 @@ def backtest_strategy(stock, start_date ):
     percentage = ( ( (total_returns - 100000) / 100000) * 100)
     percentage = "{:.0f}".format ( percentage )
 
-    return percentage + '%'
+    return percentage #+ '%'
 
 data = __KC (data)
 

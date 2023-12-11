@@ -56,7 +56,7 @@ def backtest_strategy ( stock, start_date ):
     percentage = ( ( (total_returns - 100000) / 100000) * 100)
     percentage = "{:.0f}".format ( percentage )
 
-    return percentage + '%'
+    return percentage# + '%'
 
 if ( data["AO"].iloc[-1] > 0 ) and ( data["AO"].iloc[-2] < 0 ):
     print_log ( 'ao.py', 'LONG', [ 'AO', 'AO_cross' ] , backtest_strategy ( ticker , '2020-01-01' ) )

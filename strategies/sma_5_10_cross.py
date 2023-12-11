@@ -58,7 +58,7 @@ def backtest_strategy(stock, start_date):
     percentage = ( ( (total_returns - 100000) / 100000) * 100)
     percentage = "{:.0f}".format ( percentage )
 
-    return percentage + '%'
+    return percentage #+ '%'
 
 
 if data["SMA_5"][-1] > data["SMA_10"][-1] and data["SMA_5"][-2] < data["SMA_10"][-2]:
