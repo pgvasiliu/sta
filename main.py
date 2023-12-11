@@ -24,6 +24,8 @@ except Exception as ee:
 
 import subprocess
 
+from sys import platform
+
 import warnings
 warnings.simplefilter ( action='ignore', category=Warning )
 
@@ -294,6 +296,15 @@ else:
     append_to = "app.log"
 logging.basicConfig(filename=append_to, filemode='a', format='%(name)s - %(asctime)s - %(levelname)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
 
+if "linux" in platform:
+    exe = "python3"
+elif "darwin" in platform:
+    exe = "python3"
+elif "win" in platform:
+    exe = "python"
+else:
+    raise UnsupportedPlatform
+
 # 'Close' or 'Adj Close' ?
 #cl='Adj Close'
 cl='Close'
@@ -309,7 +320,7 @@ while True:
         
         spath = "plotting/{}".format ( strategy_name )
         if ( os.path.exists ( spath )):
-            command = ['python3', spath, '-t', ticker, '--csv_file', csv_file, '--interval', interval ]
+            command = [exe, spath, '-t', ticker, '--csv_file', csv_file, '--interval', interval ]
             try:
                 result = subprocess.run(command, capture_output=True, text=True, check=True)
                 # Check if the command was successful
@@ -658,7 +669,7 @@ while True:
         # Load strategy files from command line
         if args.strategies:
             for strategy_file in args.strategies:
-                  print ("Loading file: strategies/" + strategy_file)
+                  #print ("Loading file: strategies/" + strategy_file)
                   with open ( 'strategies/' + strategy_file ) as f: exec(f.read())
                   
 
@@ -670,7 +681,7 @@ while True:
             files_py = sorted ( files_py )
 
             for strategy_file in files_py:
-                print ("Loading file: strategies/" + strategy_file)
+                #print ("Loading file: strategies/" + strategy_file)
                 with open ( 'strategies/' + strategy_file ) as f: exec(f.read())
 
         #data.to_csv('data/{}_{}.csv'.format (ticker, interval), float_format='%.2f' )
