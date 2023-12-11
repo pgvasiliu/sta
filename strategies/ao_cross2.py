@@ -5,8 +5,6 @@ def backtest_strategy ( stock, start_date ):
     Function to backtest a strategy
     """
 
-    csv_file = "./data/{}_1d.csv".format( stock )
-
     global FILE
     # if the file was downloaded today, read from it
     data = pd.read_csv ( FILE, index_col='Date' )
