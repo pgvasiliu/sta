@@ -64,7 +64,12 @@ if __name__ == '__main__':
         plt.grid(True)
 
         #plt.show()
-        filename = "{}/plotting/_plots/{}_{}.png".format ( parent_dir, symbol, filename )
+        #plt.show()
+        SAVE_TO = "{}/plotting/_plots/{}/{}".format ( parent_dir, symbol, args.interval ) 
+        if not os.path.exists(SAVE_TO):
+            os.makedirs(SAVE_TO, exist_ok=True)
+        filename = "{}/{}_{}.png".format ( SAVE_TO, symbol, filename )
         plt.savefig ( filename )
         plt.clf()  # Clear the plot for the next iteration
+
 

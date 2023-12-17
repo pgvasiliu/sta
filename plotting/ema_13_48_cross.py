@@ -40,6 +40,7 @@ for symbol in args.ticker:
         # Get stock data from Yahoo Finance
         data = yf.download(symbol, start='2020-01-01', interval=args.interval, progress=False, threads=True )
         data.to_csv ( '{}'.format ( args.csv_file ) )
+        print ("Saved to " + args.csv_file )
 
     # If the csv file is older than 1440 ( 24h * 60min )        
     today = datetime.datetime.now().date()
