@@ -76,10 +76,13 @@ $ git clone https://github.com/pgvasiliu/sta
 $ cd sta
 $ cp .tmux.conf ~/
 $ tmux new -s STA
-^b d ( disconnect from s=tmux session )
+^b d ( disconnect from tmux session )
 
 $ python3 work.py
 $ tmux at
+
+# Generate plots for a ticker
+$ cd plotting; sh RUN.sh MFC.TO
 
 Open your browser to <IP>:8000 to see plots and Tradingview graphs
 
