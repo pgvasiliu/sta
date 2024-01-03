@@ -15,9 +15,6 @@ def tmux(command):
 def tmux_shell(command):
     tmux('send-keys "%s" "C-m"' % command)
 
-# example: one tab with vim, other tab with two consoles (vertical split)
-# with virtualenvs on the project, and a third tab with the server running
-
 #tmux('new -s ST')
 
 tmux('select-window -t 0')
