@@ -70,7 +70,20 @@ SPY 1h ---> SHORT ::: 113_EMA_TEMA ::: (['EMA_9', 'TEMA_30'],)
 ```
 
 ```
-Windows setup
+Using tmux:
+$ sudo dnf install tmux
+$ git clone https://github.com/pgvasiliu/sta
+$ cd sta
+$ cp .tmux.conf ~/
+$ tmux new -s STA
+^b d ( disconnect from s=tmux session )
+
+$ python3 work.py
+$ tmux at
+
+Open your browser to <IP>:8000 to see plots and Tradingview graphs
+
+```
 
 
 ### Completed
@@ -80,14 +93,16 @@ Windows setup
 
 
 ### TODO
-- [ ] Add/fix plotting  for all strategies
-- [ ] Add/fix benchmarks for add strategies
+- [x] Add/fix plotting  for all strategies
+- [x] Add/fix benchmarks for add strategies
 
+- [x] Add web interface to view png files / plots
 - [x] Add Discord/Slack text alerting
-- [ ] Add Discord/Slack plotting for every matching strategy
 
 - [ ] Add support for other data pandas/ohlc sources ( Alpaca, Alpha Vantage, Quandl )
 - [ ] Add support for data sources ( TradingView, TD Ameritrade etc )
 
-- [ ] Find more volunteers / contributors to this script
-- [ ] Retire wealthy in 5 years :-P
+
+![plots](https://github.com/pgvasiliu/sta/blob/main/_img/plots.png?raw=true)
+![tradingview](https://github.com/pgvasiliu/sta/blob/main/_img/tradingview.png?raw=true)
+
