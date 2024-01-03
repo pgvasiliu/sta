@@ -1,5 +1,11 @@
 # sta
 
+### Description
+This program pulls data from Yahoo finance and generates plots for each of the strategies listed in the
+"strategies" folder ( i.e. 13 & 20 SMA cross, 9 & 21 EMA cross etc ). It also monitors tickers and
+displays matching strategies based on price and indicator data ( i.e. ema, sma, tema, macd, tsi etc )  
+and prints success rate of each strategy based on daily backtesting.
+
 
 ```
 Windows setup
@@ -45,28 +51,51 @@ options:
                         use strategies that return more than %
 
 
-
-$ python3 main.py -i 1d -t AAPL SPY
-
+$ python3 main.py -t SPY MSFT -i 1d -p 60
 -------------------------  1  -------------------------
-=====  AAPL  =====  2023-04-25 11:52:26  =====
-AAPL 1h ---> LONG ::: 27_MACDStrategy ::: (['CCI', 'MACD'],)
-AAPL 1h ---> SHORT ::: 46_MQL5_elder_ray2 ::: (['EMA_13', 'EMA_21'],)
+=====  MSFT [ 371.6  0.2 % ]   =====  2024-01-03 13:21:57  =====
+MSFT 1d ---> SHORT ::: bolinger_rsi_sma.py ::: return 107 ::: ['BB', 'RSI', 'SMA_13']
+MSFT 1d ---> SHORT ::: dwma_20_close_cross.py ::: return 91 ::: ['DWMA_20', 'DWMA_50', 'DWMA_20_50_cross']
+MSFT 1d ---> LONG_TREND ::: ema_144_169_sma_5.py ::: return 114 ::: ['EMA_144', 'EMA_169', 'SMA_5']
+MSFT 1d ---> LONG ::: srsi_1.py ::: return 89 ::: ['SRSI']
 
 
-=====  SPY  =====  2023-04-25 11:52:40  =====
-SPY 1h ---> SHORT ::: 113_EMA_TEMA ::: (['EMA_9', 'TEMA_30'],)
-SPY 1h ---> SHORT ::: 46_MQL5_elder_ray2 ::: (['EMA_13', 'EMA_21'],)
+Bear signals:
+SMA_5_8_Signal:BEAR
+MFI_Signal:BEAR
+
+
+-------------------------  2  -------------------------
+=====  SPY [ 470.37  -0.48 % ]   =====  2024-01-03 13:22:14  =====
+SPY 1d ---> SHORT ::: adx_rsi ::: return 67 ::: ['ADX', 'RSI']
 
 
 
-$ python3 main.py -i 1d -l app.log --tickers AAPL SPY XLE --strategies 111_SMA_20_Close.py 113_EMA_TEMA.py 114_TSI.py 112_CCI_MFI_RSI_STO_WR.py
+
+
+$ python3 main.py -i 1d -l app.log --tickers AAPL SPY XLE --strategies sma_13_close_cross.py sma_20_close_cross.py tsi_cross.py tema9_close_cross.py
 -------------------------  1  -------------------------
-=====  AAPL  =====  2023-04-25 12:06:11  =====
-=====  SPY  =====  2023-04-25 12:06:18  =====
-SPY 1h ---> SHORT ::: 113_EMA_TEMA ::: (['EMA_9', 'TEMA_30'],)
-=====  XLE  =====  2023-04-25 12:06:24  =====
+=====  AAPL [ 184.45  -0.64 % ]   =====  2024-01-03 13:27:36  =====
 
+
+
+
+-------------------------  2  -------------------------
+=====  SPY [ 470.37  -0.48 % ]   =====  2024-01-03 13:27:41  =====
+
+
+Bear signals:
+STO_Signal:BEAR
+
+
+-------------------------  3  -------------------------
+=====  XLE [ 86.08  1.58 % ]   =====  2024-01-03 13:27:45  =====
+
+
+Bull signals:
+KDJ_Signal:BULL
+Bear signals:
+SMA_5_8_Signal:BEAR
 ```
 
 ```
@@ -102,9 +131,8 @@ Open your browser to <IP>:8000 to see plots and Tradingview graphs
 - [x] Add web interface to view png files / plots
 - [x] Add Discord/Slack text alerting
 
-- [ ] Add support for other data pandas/ohlc sources ( Alpaca, Alpha Vantage, Quandl )
-- [ ] Add support for data sources ( TradingView, TD Ameritrade etc )
 
+### Images
 
 ![plots](https://github.com/pgvasiliu/sta/blob/main/_img/plots.png?raw=true)
 ![tradingview](https://github.com/pgvasiliu/sta/blob/main/_img/tradingview.png?raw=true)
