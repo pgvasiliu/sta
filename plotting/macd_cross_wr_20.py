@@ -56,9 +56,9 @@ def implement_strategy(prices, data):
     signal = 0
 
     for i in range(len(data)):
-        if data['MACD_HIST'][i] > 0 and data['MACD_HIST'][i - 1] < 0 and data["WR_20"][i-1] < -50 and data["WR_20"][i] > -50:
+        if data['MACD_HIST'].iloc[i] > 0 and data['MACD_HIST'].iloc[i - 1] < 0 and data["WR_20"].iloc[i-1] < -50 and data["WR_20"].iloc[i] > -50:
             if signal != 1:
-                buy_price.append(prices[i])
+                buy_price.append(prices.iloc[i])
                 sell_price.append(np.nan)
                 signal = 1
                 macd_signal.append(signal)
@@ -66,10 +66,10 @@ def implement_strategy(prices, data):
                 buy_price.append(np.nan)
                 sell_price.append(np.nan)
                 macd_signal.append(0)
-        elif data['MACD_HIST'][i] < 0 and data['MACD_HIST'][i - 1] > 0 and data["WR_20"][i-1] < -50 and data["WR_20"][i] > -50:
+        elif data['MACD_HIST'].iloc[i] < 0 and data['MACD_HIST'].iloc[i - 1] > 0 and data["WR_20"].iloc[i-1] < -50 and data["WR_20"].iloc[i] > -50:
             if signal != -1:
                 buy_price.append(np.nan)
-                sell_price.append(prices[i])
+                sell_price.append(prices.iloc[i])
                 signal = -1
                 macd_signal.append(signal)
             else:
@@ -119,7 +119,7 @@ for symbol in args.ticker:
     data = __MACD ( data )
     data = __WR ( data, 20 )
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     data = data.tail(365)
     # Required otherwise year is 1970
@@ -147,10 +147,10 @@ for symbol in args.ticker:
 
 
     for i in range(len( data['Adj Close'])):
-        if str( data['MACD_HIST'][i])[0] == '-':
-            ax2.bar( data.index[i], data['MACD_HIST'][i], color='#ef5350')
+        if str( data['MACD_HIST'].iloc[i])[0] == '-':
+            ax2.bar( data.index[i], data['MACD_HIST'].iloc[i], color='#ef5350')
         else:
-            ax2.bar( data.index[i], data['MACD_HIST'][i], color='#26a69a')
+            ax2.bar( data.index[i], data['MACD_HIST'].iloc[i], color='#26a69a')
 
     plt.legend(loc='lower right')
 

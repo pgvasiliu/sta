@@ -58,7 +58,7 @@ for symbol in args.ticker:
     # WSMA 20, 50
     data = __WSMA ( data, 20 )
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     # Required otherwise year is 1970
     data.index = pd.to_datetime(data.index)

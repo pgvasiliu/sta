@@ -50,9 +50,9 @@ def implement_ao_crossover ( price, ao ):
 
 
     for i in range(len(ao)):
-        if ao[i] > 0 and ao[i-1] < 0:
+        if ao.iloc[i] > 0 and ao.iloc[i-1] < 0:
             if signal != 1:
-                buy_price.append(price[i])
+                buy_price.append(price.iloc[i])
                 sell_price.append(np.nan)
                 signal = 1
                 ao_signal.append(signal)
@@ -60,10 +60,10 @@ def implement_ao_crossover ( price, ao ):
                 buy_price.append(np.nan)
                 sell_price.append(np.nan)
                 ao_signal.append(0)
-        elif ao[i] < 0 and ao[i-1] > 0:
+        elif ao.iloc[i] < 0 and ao.iloc[i-1] > 0:
             if signal != -1:
                 buy_price.append(np.nan)
-                sell_price.append(price[i])
+                sell_price.append(price.iloc[i])
                 signal = -1
                 ao_signal.append(signal)
             else:

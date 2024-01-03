@@ -120,7 +120,7 @@ for symbol in args.ticker:
     data = pd.read_csv ( args.csv_file, index_col='Date' )
 
     data = __SRSI ( data, period=14, SmoothD=3, SmoothK=3 )
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     data = data.tail(365)
     # Required otherwise year is 1970

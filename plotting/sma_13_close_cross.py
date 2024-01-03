@@ -52,7 +52,7 @@ for symbol in args.ticker:
     data["SMA_13"] = data["Adj Close"].rolling(window=13).mean()
     data = data.dropna()
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     # Buy/sell signals for  SMA crosses
     data["SMA_13_Close_Signal"] = 0.0
@@ -67,7 +67,7 @@ for symbol in args.ticker:
 
     # Chart 1 year
     data = data.tail(365)
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     # Required otherwise year is 1970
     data.index = pd.to_datetime(data.index)

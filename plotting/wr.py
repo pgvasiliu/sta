@@ -40,9 +40,9 @@ def implement_wr_strategy(prices, wr):
     signal = 0
 
     for i in range(len(wr)):
-        if wr[i - 1] > -80 and wr[i] < -80:
+        if wr.iloc[i - 1] > -80 and wr.iloc[i] < -80:
             if signal != 1:
-                buy_price.append(prices[i])
+                buy_price.append(prices.iloc[i])
                 sell_price.append(np.nan)
                 signal = 1
                 wr_signal.append(signal)
@@ -50,10 +50,10 @@ def implement_wr_strategy(prices, wr):
                 buy_price.append(np.nan)
                 sell_price.append(np.nan)
                 wr_signal.append(0)
-        elif wr[i - 1] < -20 and wr[i] > -20:
+        elif wr.iloc[i - 1] < -20 and wr.iloc[i] > -20:
             if signal != -1:
                 buy_price.append(np.nan)
-                sell_price.append(prices[i])
+                sell_price.append(prices.iloc[i])
                 signal = -1
                 wr_signal.append(signal)
             else:
@@ -101,7 +101,7 @@ for symbol in args.ticker:
 
     data = __WR ( data, 20 )
     data = data.dropna()
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     data = data.tail(365)
     # Required otherwise year is 1970

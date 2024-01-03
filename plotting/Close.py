@@ -50,7 +50,7 @@ if __name__ == '__main__':
         data = data.dropna()
         data.index = pd.to_datetime(data.index)
 
-        latest_price = data['Adj Close'][-1]
+        latest_price = data['Adj Close'].iloc[-1]
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         label = f"Current Price: ${latest_price:.2f}\n{timestamp}"
         plt.text(0.05, 0.05, label, transform=plt.gca().transAxes, verticalalignment='bottom', bbox={'facecolor': 'white', 'alpha': 0.8, 'pad': 10})

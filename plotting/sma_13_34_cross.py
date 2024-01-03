@@ -57,7 +57,7 @@ for symbol in args.ticker:
           ( data['SMA_13'].shift(1) >  data['SMA_34'].shift(1) ) & ( data['SMA_13'] <  data['SMA_34'] ) ],
     [2, -2])
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     data = data.tail(365)
     # Required otherwise year is 1970

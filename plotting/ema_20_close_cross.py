@@ -53,7 +53,7 @@ for symbol in args.ticker:
     # SMA
     data = __EMA ( data, 20 )
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     data = data.tail(365)
     # Required otherwise year is 1970

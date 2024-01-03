@@ -108,7 +108,7 @@ for symbol in args.ticker:
 
     data = __UO ( data )
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     data = data.tail(365)
     # Required otherwise year is 1970

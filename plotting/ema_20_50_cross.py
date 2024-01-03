@@ -57,7 +57,7 @@ for symbol in args.ticker:
     data = __EMA ( data, 20 )
     data = __EMA ( data, 50 )
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
 
     # Buy/sell signals for  SMA crosses
     data["Signal"] = 0.0

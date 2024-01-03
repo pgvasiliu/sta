@@ -73,9 +73,9 @@ def implement_strategy(prices, low, up, rsi ):
     signal = 0
 
     for i in range(len(prices)):
-        if ( prices[i] < low[i] ) and ( rsi[i] < 30 ):
+        if ( prices.iloc[i] < low.iloc[i] ) and ( rsi.iloc[i] < 30 ):
             if signal != 1:
-                buy_price.append(prices[i])
+                buy_price.append(prices.iloc[i])
                 sell_price.append(np.nan)
                 signal = 1
                 strategy_signal.append(signal)
@@ -83,10 +83,10 @@ def implement_strategy(prices, low, up, rsi ):
                 buy_price.append(np.nan)
                 sell_price.append(np.nan)
                 strategy_signal.append(0)
-        elif ( prices[i] > up[i]) and ( rsi[i] > 70 ):
+        elif ( prices.iloc[i] > up.iloc[i]) and ( rsi.iloc[i] > 70 ):
             if signal != -1:
                 buy_price.append(np.nan)
-                sell_price.append(prices[i])
+                sell_price.append(prices.iloc[i])
                 signal = -1
                 strategy_signal.append(signal)
             else:
@@ -125,7 +125,7 @@ for symbol in args.ticker:
     data = data.dropna()
     data = data.tail(365)
 
-    latest_price = data['Adj Close'][-1]
+    latest_price = data['Adj Close'].iloc[-1]
     # Required otherwise year is 1970
     data.index = pd.to_datetime(data.index)
 

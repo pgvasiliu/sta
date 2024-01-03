@@ -53,9 +53,9 @@ def implement_adx_strategy(prices, pdi, ndi, adx):
     signal = 0
 
     for i in range(len(prices)):
-        if adx[i - 1] < 25 and adx[i] > 25 and pdi[i] > ndi[i]:
+        if adx.iloc[i - 1] < 25 and adx.iloc[i] > 25 and pdi.iloc[i] > ndi.iloc[i]:
             if signal != 1:
-                buy_price.append(prices[i])
+                buy_price.append(prices.iloc[i])
                 sell_price.append(np.nan)
                 signal = 1
                 adx_signal.append(signal)
@@ -63,10 +63,10 @@ def implement_adx_strategy(prices, pdi, ndi, adx):
                 buy_price.append(np.nan)
                 sell_price.append(np.nan)
                 adx_signal.append(0)
-        elif adx[i - 1] < 25 and adx[i] > 25 and ndi[i] > pdi[i]:
+        elif adx.iloc[i - 1] < 25 and adx.iloc[i] > 25 and ndi.iloc[i] > pdi.iloc[i]:
             if signal != -1:
                 buy_price.append(np.nan)
-                sell_price.append(prices[i])
+                sell_price.append(prices.iloc[i])
                 signal = -1
                 adx_signal.append(signal)
             else:
