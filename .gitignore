@@ -1,7 +1,8 @@
 # ignore all logs
 *.log
 data/*.csv
-plotting/_plots/*.png
+plotting/_plots/*
+plotting/_plots/*/*/*png
 util/__pycache__/*.pyc
 .ENV_GITHUB_TOKEN
 */.ENV_GITHUB_TOKEN

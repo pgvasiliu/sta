@@ -1,0 +1,3 @@
+{% for interval in intervals %}
+<option {% if current_interval == interval %} selected="selected" {% endif %} value="{{ interval }}">{{ interval }}</option>
+{% endfor %}

@@ -9,6 +9,9 @@ elif [ -z "$GITHUB_TOKEN" ]; then
   exit 1
 fi
 
+rm -rf plotting/_plots/*
+rm -f app.log data/*csv util/__pycache__/*pyc
+
 git config user.email "anon@email.com"
 git config user.name "Scraped"
 
