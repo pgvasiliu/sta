@@ -17,20 +17,20 @@ def tmux_shell(command):
 
 #tmux('new -s ST')
 
-tmux('select-window -t 0')
+tmux('select-window -t 1')
 tmux_shell('cd %s' % PROJECT_PATH)
 tmux('rename-window "main.py"')
 tmux_shell("python3 main.py -t SPY -i 1d -p 60")
 
 # console in project
 tmux('new-window')
-tmux('select-window -t 1')
+tmux('select-window -t 2')
 tmux_shell('cd %s' % PROJECT_PATH)
 #tmux_shell(ACTIVATE_VENV)
 tmux('rename-window "console"')
 # second console as split
 tmux('split-window -v')
-tmux('select-pane -t 1')
+tmux('select-pane -t 2')
 tmux_shell('cd %s/plotting' % PROJECT_PATH)
 #tmux_shell(ACTIVATE_VENV)
 tmux('rename-window "plotting"')
@@ -38,7 +38,7 @@ tmux_shell("sh RUN.sh SPY")
 
 # local server
 tmux('new-window')
-tmux('select-window -t 2')
+tmux('select-window -t 3')
 tmux_shell('cd %s' % PROJECT_PATH)
 #tmux_shell(ACTIVATE_VENV)
 tmux_shell('cd %s' % WEB_PATH)
@@ -46,7 +46,7 @@ tmux_shell('python3 run.py')
 tmux('rename-window "server"')
 
 # go back to the first window
-tmux('select-window -t 0')
+tmux('select-window -t 1')
 
 #tmux('at')
 
