@@ -17,7 +17,7 @@
         <div class="input-group mb-3 flex-nowrap">
             <span class="input-group-text">Ticket</span>
             <select class="form-select" hx-get="{{ url_for('htmx_intervals') }}" hx-target='#interval-id' name="ticket">
-                {% for ticket in tickets %}
+                {% for ticket in tickets | sort %}
                 {% if current_ticket == ticket %}
                 <option selected value="{{ ticket }}">{{ ticket }}</option>
                 {% else %}
